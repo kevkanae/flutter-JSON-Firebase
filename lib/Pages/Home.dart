@@ -4,11 +4,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:k1/Components/Parser.dart';
 import 'package:k1/Pages/LandingPage.dart';
 import 'package:k1/Pages/Profile.dart';
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 class Home extends StatefulWidget {
