@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:k1/Components/Parser.dart';
 import 'package:k1/Pages/LandingPage.dart';
 import 'package:k1/Pages/Profile.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,12 +18,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final _auth = FirebaseAuth.instance;
   User user = FirebaseAuth.instance.currentUser;
+  Reference reference = FirebaseStorage.instance.ref().child("images/");
   Future<List<Jsondata>> yoss;
 
   @override
   void initState() {
     super.initState();
-
     yoss = fetchData();
   }
 
@@ -42,9 +48,29 @@ class _HomeState extends State<Home> {
               child: Icon(Icons.account_box),
               backgroundColor: Color(0xffe4fbff),
             ),
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Profile()));
+            onTap: () async {
+              _fileFromImageUrl() async {
+                String s = await reference.getDownloadURL();
+                String str = s
+                    .split('https://firebasestorage.googleapis.com')
+                    .toSet()
+                    .join('');
+                var uri = Uri.https('firebasestorage.googleapis.com', str);
+                final response = await http.get(uri);
+
+                final documentDirectory =
+                    await getApplicationDocumentsDirectory();
+                final file =
+                    File(join(documentDirectory.path, 'imagetest.png'));
+                file.writeAsBytesSync(response.bodyBytes);
+                String path = file.path;
+                return path;
+              }
+
+              String leUrl = await _fileFromImageUrl();
+
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Profile(leUrl)));
             },
           ),
           IconButton(

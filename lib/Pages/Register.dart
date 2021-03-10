@@ -109,30 +109,31 @@ class _RegisterState extends State<Register> {
                           await _auth.createUserWithEmailAndPassword(
                               email: email, password: password);
                       if (newUser != null) {
-                        if (myImage != null) {
-                          Reference reference = storage.ref().child("images/");
-                          UploadTask uploadTask =
-                              reference.putFile(File(myImage.path));
-                          uploadTask.whenComplete(() async {
-                            downImg = await reference.getDownloadURL();
-                          }).catchError((onError) {
-                            print(onError);
+                        Reference reference = storage.ref().child("images/");
+                        UploadTask uploadTask =
+                            reference.putFile(File(myImage.path));
+                        uploadTask.whenComplete(() async {
+                          downImg = await reference.getDownloadURL();
+                        }).catchError((onError) {
+                          print(onError);
+                        });
+                        print(await downImg);
+                        var a = await downImg;
+                        user.updateProfile(photoURL: a);
+                        Future.delayed(const Duration(seconds: 4), () {
+                          setState(() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Home()),
+                            );
+                            setState(() {
+                              showSpinner = false;
+                            });
                           });
-                          user.updateProfile(photoURL: await downImg);
-                        }
-                        print('//////////////////////////////////');
-                        print(user.photoURL);
-                        print('//////////////////////////////////');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Home()),
-                        );
-                        setState(() {
-                          showSpinner = false;
                         });
                       }
                     } catch (e) {
-                      if (e.code == 'email-already-in-use') {
+                      if (e) {
                         setState(() {
                           showSpinner = false;
                         });

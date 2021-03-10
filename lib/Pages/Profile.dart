@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class Profile extends StatefulWidget {
+  final String leURL;
+  Profile(this.leURL);
   @override
   _ProfileState createState() => _ProfileState();
 }
@@ -12,6 +14,7 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   User user = FirebaseAuth.instance.currentUser;
   FirebaseStorage storage = FirebaseStorage.instance;
+  Reference reference = FirebaseStorage.instance.ref().child("images/");
   final ImagePicker picker = ImagePicker();
   var downImg;
   var currentImage;
@@ -19,10 +22,10 @@ class _ProfileState extends State<Profile> {
   String url = FirebaseAuth.instance.currentUser.photoURL;
   final cont = TextEditingController(
       text: '${FirebaseAuth.instance.currentUser.displayName}');
+
   @override
   void initState() {
-    currentImage = user.photoURL;
-    print(currentImage.toString());
+    currentImage = widget.leURL;
     super.initState();
   }
 
@@ -45,17 +48,13 @@ class _ProfileState extends State<Profile> {
                   children: [
                     InkWell(
                       child: CircleAvatar(
-                          radius: 90,
-                          backgroundImage: NetworkImage(currentImage)),
+                        radius: 90,
+                        backgroundImage: FileImage(File(currentImage)),
+                      ),
                       onTap: () async {
                         PickedFile myImage =
                             await picker.getImage(source: ImageSource.gallery);
-                        user.updateProfile(photoURL: myImage.path);
-                        setState(() {
-                          url = myImage.path;
-                        });
                         if (myImage != null) {
-                          Reference reference = storage.ref().child("images/");
                           UploadTask uploadTask =
                               reference.putFile(File(myImage.path));
                           uploadTask.whenComplete(() async {
@@ -65,6 +64,10 @@ class _ProfileState extends State<Profile> {
                           });
                           user.updateProfile(photoURL: await downImg);
                           user.reload();
+                          setState(() {
+                            currentImage = myImage.path;
+                            print(currentImage.toString());
+                          });
                         }
                       },
                     ),
