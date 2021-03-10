@@ -17,6 +17,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+
     yoss = fetchData();
   }
 
