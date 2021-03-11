@@ -1,16 +1,35 @@
-# k1
+# Firebase - JSON Parsing
+---
 
-A new Flutter project.
+**A New Flutter Project.**<br>
+***This is an app that connects/authenticates using firebase and displays a set of JSON data***
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+---
+ScreenShots
+---
+  <table>
+    <tr>
+      <td><img src="https://raw.githubusercontent.com/kevkanae/flutter-JSON-Firebase/master/extra/1.jpg" alt="App SS" width="300" height="550" /></td>
+      <td><img src="https://raw.githubusercontent.com/kevkanae/flutter-JSON-Firebase/master/extra/2.jpg" alt="App SS" width="300" height="550" /></td>
+    </tr>
+    <tr>
+      <td><img src="https://raw.githubusercontent.com/kevkanae/flutter-JSON-Firebase/master/extra/3.jpg" alt="App SS" width="300" height="550" /></td>
+      <td><img src="https://raw.githubusercontent.com/kevkanae/flutter-JSON-Firebase/master/extra/4.jpg" alt="App SS" width="300" height="550" /></td>
+    </tr>
+      <tr>
+      <td><img src="https://raw.githubusercontent.com/kevkanae/flutter-JSON-Firebase/master/extra/5.jpg" alt="App SS" width="300" height="550" /></td>
+      <td><img src="https://raw.githubusercontent.com/kevkanae/flutter-JSON-Firebase/master/extra/6.jpg" alt="App SS" width="300" height="550" /></td>
+    </tr>
+  </table>
+  
+---
 
-A few resources to get you started if this is your first Flutter project:
+ 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
+
+
+For help getting started with Flutter, view
 [online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+samples, guidance on mobile development, an
